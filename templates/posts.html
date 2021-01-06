@@ -6,11 +6,20 @@
 {% endblock %}
 
 {% block body %} 
-
+<!--we crearted a route and now that we have posts= all_posts(which is linked to our database)-->
+<!--we will now have access to variable posts that we can use in our html-->
+<!--for post.html file, so for posts in post, we created a for loop for posts in posts, lets ups pull from post.title because post=all posts in our variable we created in app.py in our route-->
+<!--we created an if else statement on line 17, if we look in post.author and find it it will print h3 tag By author, else N/A and end with elif to close it-->
 <h1>All Posts</h1>
 
     {% for post in posts %}
         <h2>{{ post.title }}</h2>
+        {% if post.author%}
+            <h3>By: {{ post.author }}</h3>
+        {% else %}
+            <h3>By: N/A</h3>
+        {% endif %}
+
         <p>{{ post.content }}</p>
     {%endfor%}
 
