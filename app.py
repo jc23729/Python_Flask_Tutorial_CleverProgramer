@@ -19,6 +19,8 @@ def index():
 
 ##we crearted a route and now that we have posts= all_posts(which is linked to our database)
 # we will now have access to variable posts that we can use in our html
+#for post.html file, so for posts in post, we created a for loop for posts in posts, {{lets ups pull from post.title because post=all posts in our variable we created in app.py in our route}}
+
 @app.route('/posts')
 def posts():
     return render_template('posts.html', posts = all_posts)

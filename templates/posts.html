@@ -6,11 +6,13 @@
 {% endblock %}
 
 {% block body %} 
+
 <h1>All Posts</h1>
-<!--so for posts in post, we created a for loop for posts in posts, 
-    {{lets ups pull from post.title because post=all posts in our variable we created in app.py in our route}}-->
-    {% for posts in posts %}
-        <h2>{{post.title}}</h2>
+
+    {% for post in posts %}
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
     {%endfor%}
 
 {% endblock %}
+
