@@ -1,6 +1,12 @@
 from flask import Flask, render_template
-
+from flask_sqlalchemy import SQLAlchemy
 app= Flask(__name__)
+
+#Path were database is stored
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite'
+
+
+
 #we created a list of dictionaries to create a dummy database
 all_posts= [
     {
