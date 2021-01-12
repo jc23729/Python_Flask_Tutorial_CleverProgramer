@@ -17,13 +17,13 @@ class BlogPost(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content= db.Column(db.Text, nullable=False)
     author= db.Column(db.String(20), nullable=False, default='N/A')
-    date_posted = db.Column(db.DateTime, nullable=False, default=dateime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 #going to print out to screen 
     def __repr__(self):
         return 'Blog post' + str(self.id)
     
 
-#we created a list of dictionaries to create a dummy database
+#we created a list of dictionaries to create a dummy database, dictionaries is how we want to structure our data
 all_posts= [
     {
         'title':'Post 1',
