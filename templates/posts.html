@@ -5,6 +5,13 @@
 <title>Posts</title> 
 {% endblock %}
 
+<hr>
+<h2>Create New Blog Post:</h2>
+<form action='/posts' method = 'POST'>
+Title: <input type='text' name ='title' id ='title'>
+</form>
+<hr>
+
 {% block body %} 
 <!--we crearted a route and now that we have posts= all_posts(which is linked to our database)-->
 <!--we will now have access to variable posts that we can use in our html-->
