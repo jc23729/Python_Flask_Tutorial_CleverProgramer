@@ -1,11 +1,27 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 app= Flask(__name__)
-
-#Path were database is stored
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite'
-
-
+########STOPPED ON 1 HOUR OF COURSE###############
+#Path were database is stored, and setup of  Real database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///post.db'
+db = SQLAlchemy(app)
+# each class variable is considered a piece of data in database
+#a database is just like a big table with columns and rows
+class BlogPost(db.Model):
+    """this id will always be unique, thats why its primary key, 
+    title nullable false means the content has to be there, 
+    .String(100) or whatever says in there is the size allowable, author is required but if not there use N/a"""
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content= db.Column(db.Text, nullable=False)
+    author= db.Column(db.String(20), nullable=False, default='N/A')
+    date_posted = db.Column(db.DateTime, nullable=False, default=dateime.utcnow)
+#going to print out to screen 
+    def __repr__(self):
+        return 'Blog post' + str(self.id)
+    
 
 #we created a list of dictionaries to create a dummy database
 all_posts= [
