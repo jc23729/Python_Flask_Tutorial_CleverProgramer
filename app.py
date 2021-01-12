@@ -3,9 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 ############
 app= Flask(__name__)
-########STOPPED ON 1 HOUR OF COURSE###############
+
 #Path were database is stored, and setup of  Real database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///post.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(app)
 # CREATE MODELS
 # each class variable is considered a piece of data in database
@@ -13,13 +13,13 @@ db = SQLAlchemy(app)
 class BlogPost(db.Model):
     """this id will always be unique, thats why its primary key, 
     title nullable false means the content has to be there, 
-    .String(100) or whatever says in there is the size allowable, author is required but if not there use N/a"""
+    .String(100) or whatever says is limit the number of characters, if you don't put anything then theirs no limit, author is required but if not there use N/a"""
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content= db.Column(db.Text, nullable=False)
     author= db.Column(db.String(20), nullable=False, default='N/A')
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#going to print out to screen 
+#DEFINE A METHOD(kinda like a function) going to print out to screen whenvever we create a new blog posts
     def __repr__(self):
         return 'Blog post' + str(self.id)
     
