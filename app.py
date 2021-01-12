@@ -7,6 +7,7 @@ app= Flask(__name__)
 #Path were database is stored, and setup of  Real database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///post.db'
 db = SQLAlchemy(app)
+# CREATE MODELS
 # each class variable is considered a piece of data in database
 #a database is just like a big table with columns and rows
 class BlogPost(db.Model):
