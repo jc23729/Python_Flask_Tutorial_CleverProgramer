@@ -5,16 +5,7 @@
 <title>Posts</title> 
 {% endblock %}
 
-<hr>
-<h2>Create New Blog Post:</h2>
-<form action='/posts' method = 'POST'>
-    Title: <input type='text' name ='title' id ='title'>
-    <br>
-    Posts:<input type="text" name="content" id="content">
-    <br>
-    <input type="submit" value="Post">
-</form>
-<hr>
+
 
 {% block body %} 
 <!--we crearted a route and now that we have posts= all_posts(which is linked to our database)-->
@@ -22,6 +13,18 @@
 <!--for post.html file, so for posts in post, we created a for loop for posts in posts, lets ups pull from post.title because post=all posts in our variable we created in app.py in our route-->
 <!--we created an if else statement on line 17, if we look in post.author and find it it will print h3 tag By author, else N/A and end with elif to close it-->
 <h1>All Posts</h1>
+<hr>
+<h2>Create New Blog Post:</h2>
+    <form action='/posts' method = 'POST'>
+        Title: <input type='text' name ='title' id ='title'>
+        <br>
+        Author:<input type="text" name="author" id="author">
+        <br>
+        Posts:<input type="text" name="content" id="content">
+        <br>
+        <input type="submit" value="Post">
+    </form>
+<hr>
 
     {% for post in posts %}
         <h2>{{ post.title }}</h2>
@@ -32,6 +35,8 @@
         {% endif %}
 
         <p>{{ post.content }}</p>
+        <a href="">Delete</a>
+        <hr>
     {%endfor%}
 
 {% endblock %}

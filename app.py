@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 ############
@@ -25,17 +25,17 @@ class BlogPost(db.Model):
     
 
 #we created a list of dictionaries to create a dummy database, dictionaries is how we want to structure our data
-all_posts= [
-    {
-        'title':'Post 1',
-        'content': 'This is the content of post 1. LAlalalala',
-        'author': 'John'
-        },
-        {
-        'title':'Post 2',
-        'content': 'This is the content of post 2. LAlalalala'
-        }
-    ]
+# all_posts= [
+#     {
+#         'title':'Post 1',
+#         'content': 'This is the content of post 1. LAlalalala',
+#         'author': 'John'
+#         },
+#         {
+#         'title':'Post 2',
+#         'content': 'This is the content of post 2. LAlalalala'
+#         }
+#     ]
 #main template 
 @app.route('/')
 def index():
@@ -45,18 +45,28 @@ def index():
 # we will now have access to variable posts that we can use in our html
 #for post.html file, so for posts in post, we created a for loop for posts in posts, {{lets ups pull from post.title because post=all posts in our variable we created in app.py in our route}}
 
-@app.route('/posts', methods =['GET', 'POSTS'])
+@app.route('/posts', methods =['GET', 'POST'])
 def posts():
-    return render_template('posts.html', posts = all_posts)
+    if request.method == 'POST':
+        post_title = request.form['title']
+        post_content = request.form['content']
+        post_author = request.form['author']
+        new_post = BlogPost(title=post_title, content=post_content, author= post_author)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect('/posts')
+    else:
+        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+        return render_template('posts.html', posts = all_posts)
 
-@app.route('/home/<int:id>')
-def hello(id):
-    return "Hello, " + str(id)
+# @app.route('/home/<int:id>')
+# def hello(id):
+#     return "Hello, " + str(id)
 
 #route that only gets get requests 
-@app.route('/onlyget', methods=['Get'])
-def get_reg():
-    return 'You can only get this webpage. '
+# @app.route('/onlyget', methods=['Get'])
+# def get_reg():
+#     return 'You can only get this webpage. '
 
 # # if __name__ == "__main__":
 # #     app.run(debug=True)
