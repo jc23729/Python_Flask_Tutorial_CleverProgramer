@@ -1,44 +1,33 @@
 {% extends 'base.html' %}
 
-
 {% block head %}
 <title>Posts</title> 
 {% endblock %}
 
-
-
-{% block body %} 
-<!--we crearted a route and now that we have posts= all_posts(which is linked to our database)-->
-<!--we will now have access to variable posts that we can use in our html-->
-<!--for post.html file, so for posts in post, we created a for loop for posts in posts, lets ups pull from post.title because post=all posts in our variable we created in app.py in our route-->
-<!--we created an if else statement on line 17, if we look in post.author and find it it will print h3 tag By author, else N/A and end with elif to close it-->
-<h1>All Posts</h1>
-<hr>
-<h2>Create New Blog Post:</h2>
-    <form action='/posts' method = 'POST'>
-        Title: <input type='text' name ='title' id ='title'>
-        <br>
-        Author:<input type="text" name="author" id="author">
-        <br>
-        Posts:<input type="text" name="content" id="content">
-        <br>
-        <input type="submit" value="Post">
-    </form>
-<hr>
+{% block body %}
+<br>
+<div>
+    <h1 style="display:inline">All Posts</h1>
+    <a style="display:inline" class="btn btn-success float-right" href="/posts/new" >+ New Post</a>
+</div>
+    <hr>
 
     {% for post in posts %}
         <h2>{{ post.title }}</h2>
         {% if post.author %}
-            <small>Written by {{ post.author }} on {{ post.date_posted }}</small> 
+            <small> Written by {{ post.author }} on {{ post.date_posted }}</small>
         {% else %}
-        <small>Written Unknown on {{ post.date_posted }}</small> 
+            <small> Written by Unknown on {{ post.date_posted }}</small>
         {% endif %}
-
-        <p>{{ post.content }}</p>
-        <a href='/posts/delete/{{post.id}}'>Delete</a>
-        <a href='/posts/edit/{{post.id}}'>Edit</a>
+        <br>
+        <br>
+        <p style="white-space:pre-wrap">{{ post.content }}</p>
+        <br>
+        <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>
+        <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>
+        <br>
         <hr>
-    {%endfor%}
+        <br>
+    {% endfor%}
 
 {% endblock %}
-

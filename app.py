@@ -45,20 +45,21 @@ def index():
 # we will now have access to variable posts that we can use in our html
 #for post.html file, so for posts in post, we created a for loop for posts in posts, {{lets ups pull from post.title because post=all posts in our variable we created in app.py in our route}}
 
-@app.route('/posts', methods =['GET', 'POST'])
+##ADD posts
+@app.route('/posts', methods=['GET', 'POST'])
 def posts():
+
     if request.method == 'POST':
         post_title = request.form['title']
         post_content = request.form['content']
         post_author = request.form['author']
-        new_post = BlogPost(title=post_title, content=post_content, author= post_author)
+        new_post = BlogPost(title=post_title, content=post_content, author=post_author)
         db.session.add(new_post)
         db.session.commit()
         return redirect('/posts')
     else:
         all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-        return render_template('posts.html', posts = all_posts)
-
+        return render_template('posts.html', posts=all_posts)
 ##Delete posts
 @app.route('/posts/delete/<int:id>')
 def delete(id):
